@@ -1,0 +1,9 @@
+#ignore
+*.d
+*.o
+output/*
+maze_generator
+
+#except
+!output/.gitkeep
+!maze_generator
