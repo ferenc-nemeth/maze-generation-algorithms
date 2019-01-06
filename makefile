@@ -19,7 +19,7 @@ MODULES += mazes/kruskal
 
 # Common
 MODULES += common/maze_generator
-MODULES += common/save
+MODULES += common/file_system
 MODULES += common/main
 
 WILDSRC  = $(addsuffix /*.cpp,$(MODULES))

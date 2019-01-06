@@ -26,9 +26,11 @@ namespace maze
       static constexpr uint32_t wall = 0u;
       static constexpr uint32_t hole = 1u;
 
-      void set_wall(uint32_t y, uint32_t x);
-      void set_hole(uint32_t y, uint32_t x);
+      void set_cell(uint32_t y, uint32_t x, uint32_t value);
+      uint32_t get_cell(uint32_t y, uint32_t x);
       std::vector<std::vector<uint32_t>> get_maze(void);
+      void set_maze(std::vector<std::vector<uint32_t>> vect);
+      void reshape(uint32_t new_height, uint32_t new_width);
 
     protected:
       std::random_device random_device;

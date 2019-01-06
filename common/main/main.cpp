@@ -17,7 +17,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <ctime>
-#include "save.h"
+#include "file_system.h"
 
 /**
  * @brief   Main function.
@@ -31,11 +31,12 @@ int32_t main(void)
   uint32_t algorithm    = 0u;
   std::string filename  = "output/";
   time_t current_time   = 0u;
+  maze::file_system m_file_system;
   
-  std::cout << "\n---------------------------------\n";
+  std::cout << "\n--------------------------------\n";
   std::cout << "   Maze generation algorithms\n";
   std::cout << "https://github.com/ferenc-nemeth\n";
-  std::cout << "---------------------------------\n\n";
+  std::cout << "--------------------------------\n\n";
   std::cout << "Width of the maze (must be odd number): ";
   std::cin  >> width;
   std::cout << "Height of the maze (must be odd number): ";
@@ -58,57 +59,57 @@ int32_t main(void)
   /* Generate the empty area, put entrance and exit on it, then generate the actual maze. */
   if (1u == algorithm)
   {
-    maze::binary_tree new_maze(height, width);    /**< Initialize. */
-    new_maze.set_hole(0u,1u);                     /**< Entrance point at top-left. */
-    new_maze.set_hole(height-1u, width-2u);       /**< Exit point at bottom-right. */
-    new_maze.generate();                          /**< The actual generation. */
-    filename += "_Binary_tree";                   /**< Add the name of the algorithm into the filename. */
-    save_to_file(new_maze.get_maze(), filename);  /**< Save. */
+    maze::binary_tree new_maze(height, width);              /**< Initialize. */
+    new_maze.set_cell(0u,1u, new_maze.hole);                /**< Entrance point at top-left. */
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);  /**< Exit point at bottom-right. */
+    new_maze.generate();                                    /**< The actual generation. */
+    filename += "_Binary_tree.png";                         /**< Add the name of the algorithm into the filename. */
+    m_file_system.save(new_maze.get_maze(), filename);      /**< Save. */
   }
   else if (2u == algorithm)
   {
     maze::recursive_backtracking new_maze(height, width);
-    new_maze.set_hole(0u,1u);
-    new_maze.set_hole(height-1u, width-2u);
+    new_maze.set_cell(0u,1u, new_maze.hole);
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);
     new_maze.generate();
-    filename += "_Recursive_backtracking";
-    save_to_file(new_maze.get_maze(), filename);
+    filename += "_Recursive_backtracking.png";
+    m_file_system.save(new_maze.get_maze(), filename);
   }
   else if (3u == algorithm)
   {
     maze::recursive_division new_maze(height, width);
-    new_maze.set_hole(0u,1u);
-    new_maze.set_hole(height-1u, width-2u);
+    new_maze.set_cell(0u,1u, new_maze.hole);
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);
     new_maze.generate();
-    filename += "_Recursive_division";
-    save_to_file(new_maze.get_maze(), filename);
+    filename += "_Recursive_division.png";
+    m_file_system.save(new_maze.get_maze(), filename);
   }
   else if (4u == algorithm)
   {
     maze::prim new_maze(height, width);
-    new_maze.set_hole(0u,1u);
-    new_maze.set_hole(height-1u, width-2u);
+    new_maze.set_cell(0u,1u, new_maze.hole);
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);
     new_maze.generate();
-    filename += "_Prim";
-    save_to_file(new_maze.get_maze(), filename);
+    filename += "_Prim.png";
+    m_file_system.save(new_maze.get_maze(), filename);
   }
   else if (5u == algorithm)
   {
     maze::aldous_broder new_maze(height, width);
-    new_maze.set_hole(0u,1u);
-    new_maze.set_hole(height-1u, width-2u);
+    new_maze.set_cell(0u,1u, new_maze.hole);
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);
     new_maze.generate();
-    filename += "_Aldous_Broder";
-    save_to_file(new_maze.get_maze(), filename);
+    filename += "_Aldous_Broder.png";
+    m_file_system.save(new_maze.get_maze(), filename);
   }
   else if (6u == algorithm)
   {
     maze::kruskal new_maze(height, width);
-    new_maze.set_hole(0u,1u);
-    new_maze.set_hole(height-1u, width-2u);
+    new_maze.set_cell(0u,1u, new_maze.hole);
+    new_maze.set_cell(height-1u, width-2u, new_maze.hole);
     new_maze.generate();
-    filename += "_Kruskal";
-    save_to_file(new_maze.get_maze(), filename);
+    filename += "_Kruskal.png";
+    m_file_system.save(new_maze.get_maze(), filename);
   }
   else
   {
