@@ -6,7 +6,7 @@ Collection of maze generation algorithms.
 - [How it works](#how-it-works)
   - [File structure](#file-structure)
   - [Maze generators](#maze-generators)
-  - [Main and save](#main-and-save)
+  - [Main and file_system](#main-and-file_system)
 - [How to use it](#how-to-use-it)
 - [References](#references)
 
@@ -37,11 +37,10 @@ The folder structure can be seen below.
 ```bash
 .
 ├── common
+│   ├── file_system
 │   ├── main
-│   ├── maze_generator
-│   └── save
+│   └── maze_generator
 ├── design
-│   └── sample.png
 ├── LICENSE
 ├── makefile
 ├── mazes
@@ -59,7 +58,7 @@ Details about the important folders and files:
 
 - common:
   - main: Main() function.
-  - save: Saves the maze as an image.
+  - file_system: Saves/loads the maze as an image.
   - maze_generator: Base class for every other class.
 - design: Pictures needed by this readme.
 - makefile: Generates the target.
@@ -71,18 +70,29 @@ Details about the important folders and files:
 
 A maze is represented by a **vector<vector<uint32_t>>**, where 0 is a hole or passage, and 1 is a wall.
 
-Each algorithm has it's own class and has the following public methods:
-- **constructor(uint32_t height, uint32_t width)**: Creates the 2D vector with the given height and width.
-- **set_wall(uint32_t y, uint32_t x)**: Manually changes a cell into a wall (1).
-- **set_hole(uint32_t y, uint32_t x)**: Manually changes a cell into a hole (0).
-- **get_maze()**: Returns the generated 2D vector.
-- **generate()**: Does the actual generation.
-The first four methods are inherited from the base class, the last is different for every algorithm.
+Every algorithm has its own class and a common base class, called maze_generator.
 
-#### Main and save
+Each class has the following public methods:
 
-The main function asks for width, height and algorithm for the generation.
-After these, the *save_to_file()* function gets called from save.cpp/.h and saves a maze into a picture. It transforms every wall into a black cell and every hole into a white cell. Next, it resizes the maze to be 20 times bigger. The picture generation is done by OpenCV.
+| Method      | Purpose                                                                       |
+| ---         | ---                                                                           |
+| constructor | Creates the 2D vector with the given height and width.                        |
+| get_cell    | Returns the value of the cell.                                                |
+| set_cell    | Manually changes the value of a cell (turns it into a wall (1) or a hole(0).  |
+| get_maze    | Returns the maze as a 2D vector.                                              |
+| set_maze    | Manually overwrites the whole maze.                                           |
+| reshape     | Changes the height and width of the maze.                                     |
+| generate    | Does the actual generation.                                                   |
+
+The first six methods are inherited from the base class, the last is different for every algorithm.
+
+#### Main and file_system
+
+The main function is a demo, that demonstrates how the generator is working. It asks for width, height and algorithm for the generation.
+After these, it saves the maze as a \*.png image. 
+
+The file_system file and class has a save and load method. The save, as its name shows saves me maze. It uses OpenCV to convert the vector-vector into an actual image. It turns every wall into a black cell, every hole into a white cell, and everything else into red. The method also resizes the image, makes it 20 times bigger, for visibility porpuse.
+The load method works the same way, but does the opposite, loads an image and turns it into a vector-vector.
 
 ### How to use it
 
@@ -106,7 +116,15 @@ If it worked, then run:
 ```
 Enjoy!
 
-There is also **make clean** and **make clean_output**. First one is the normal clean, the second one clears the output folder.
+There is also 
+```
+make clean
+```
+and
+```
+make clean_output
+```
+First one is the normal clean, the second one clears the output folder.
 
 ### References
 [1] [Jamis Buck (The Buckblog) - Binary tree algorithm](https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm)<br>
@@ -114,4 +132,4 @@ There is also **make clean** and **make clean_output**. First one is the normal 
 [3] [Jamis Buck (The Buckblog) - Recursive division algorithm](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)<br>
 [4] [Jamis Buck (The Buckblog) - Prim's algorithm](https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm)<br>
 [5] [Jamis Buck (The Buckblog) - Aldous-Broder algorithm](https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm)<br>
-[6] [Jamis Buck (The Buckblog)g - Kruskal's algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)<br>
+[6] [Jamis Buck (The Buckblog) - Kruskal's algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)<br>
