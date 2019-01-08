@@ -75,6 +75,10 @@ std::vector<std::vector<uint32_t>> maze::file_system::load(std::string filename)
       {
         vect[y][x] = maze::maze_generator::hole;
       }
+      else
+      {
+        /* Do nothing. */
+      }
     }
   }
 
