@@ -22,6 +22,9 @@ MODULES += common/maze_generator
 MODULES += common/file_system
 MODULES += common/main
 
+# Solver
+MODULES += solver
+
 WILDSRC  = $(addsuffix /*.cpp,$(MODULES))
 SOURCES  = $(wildcard $(WILDSRC))
 OBJECTS  = $(SOURCES:.cpp=.o)
