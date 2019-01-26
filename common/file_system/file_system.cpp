@@ -77,7 +77,7 @@ std::vector<std::vector<uint32_t>> maze::file_system::load(std::string filename)
       }
       else
       {
-        /* Do nothing. */
+        vect[y][x] = maze::maze_generator::solution;
       }
     }
   }
