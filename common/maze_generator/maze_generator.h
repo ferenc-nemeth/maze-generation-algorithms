@@ -23,8 +23,9 @@ namespace maze
     public:
       explicit maze_generator(uint32_t height, uint32_t width);
 
-      static constexpr uint32_t wall = 0u;
-      static constexpr uint32_t hole = 1u;
+      static constexpr uint32_t wall     = 0u;
+      static constexpr uint32_t hole     = 1u;
+      static constexpr uint32_t solution = 2u;
 
       void set_cell(uint32_t y, uint32_t x, uint32_t value);
       uint32_t get_cell(uint32_t y, uint32_t x);
