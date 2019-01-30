@@ -21,6 +21,7 @@ namespace maze
   {
     public:
       void dead_end(std::vector<std::vector<uint32_t>> &vect);
+      void dijkstra(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x);
       void wall_follower(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x, uint32_t rule = left);
 
       static constexpr uint32_t left  = 0u;
@@ -37,10 +38,17 @@ namespace maze
       static constexpr uint8_t west   = 2u;
       static constexpr uint8_t east   = 3u;
 
+      /* For wall follower algorithm. */
       struct element {
         uint32_t y;
         uint32_t x;
         uint32_t direction;
+      };
+
+      /* For Dijkstra's algorithm. */
+      struct distance {
+        uint32_t y;
+        uint32_t x;
       };
 
   };

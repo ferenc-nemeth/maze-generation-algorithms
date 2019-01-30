@@ -96,6 +96,120 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect)
 }
 
 /**
+ * @brief   Solves the maze with Dijstra's algorithm.
+ * @param   &vect       - The vector-vector of the maze we want to solve. It overwrites the input one.
+ * @param   entrance_y  - Y coordinate of the entrance.
+ * @param   entrance_x  - X coordinate of the entrance.
+ * @param   exit_y      - Y coordinate of the exit.
+ * @param   exit_x      - X coordinate of the exit.
+ * @return  void
+ */
+void maze::solver::dijkstra(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x)
+{
+  std::vector<distance> distances;
+  uint32_t distance_cnt = 3u; /* Should be 0, but 0-2 are already used, so it would confuse everything. */
+  distances.push_back({entrance_y, entrance_x}); 
+  bool new_distance = true;
+  uint32_t y = 0u;
+  uint32_t x = 0u;
+
+  /* Walk away from the entrace and save their distance (from the entrance). */
+  while(new_distance)
+  {
+    new_distance = false;
+    uint32_t distance_max = distances.size();
+    distance_cnt++;
+    /* With the for loop, we can walk "parellel". */
+    /* If there are 2 path, then there'll 2 elements in the vector, if there are 3, then 3, etc..*/
+    for (uint32_t i = 0u; i < distance_max; i++)
+    {
+      y = distances[0u].y;
+      x = distances[0u].x;
+
+      vect[y][x] = distance_cnt;
+      /* if north is a hole, then save. */
+      if ((y > 0u) && (hole == vect[y-1u][x]))
+      {
+        distances.push_back({y-1u,x});
+        new_distance = true;
+      }
+      /* Ff south is a hole, then save. */
+      if (((y+1u) < vect.size()) && (hole == vect[y+1u][x]))
+      {
+        distances.push_back({y+1u,x});
+        new_distance = true;
+      }
+      /* if west is a hole, then save. */
+      if ((x > 0u) && (hole == vect[y][x-1u]))
+      {
+        distances.push_back({y,x-1u});
+        new_distance = true;
+      }
+      /* If east is a hole, then save. */
+      if (((x+1u) < vect[0u].size()) && (hole == vect[y][x+1u]))
+      {
+        distances.push_back({y,x+1u});
+        new_distance = true;
+      }
+      
+      /* Stop at the end. It could run and check every cell in the maze, but it would be waste of time. */
+      if ((y == exit_y) && (x == exit_x))
+      {
+        new_distance = false;
+        break;
+      }
+
+      distances.erase(distances.begin());
+    }
+  }
+
+  /* Walk back from the exit to the entrance. */
+  y = exit_y;
+  x = exit_x;
+  distance_cnt = vect[y][x];
+
+  /* Loop until we aren't at the beginning. */
+  while(3u != distance_cnt)
+  {
+    /* Mark everything as a solution on the way. */
+    vect[y][x] = solution;
+    distance_cnt--;
+    if ((y > 0u) && (distance_cnt == vect[y-1u][x]))
+    {
+      y--;
+    }
+    else if (((y+1u) < vect.size()) && (distance_cnt == vect[y+1u][x]))
+    {
+      y++;
+    }
+    else if ((x > 0u) && (distance_cnt == vect[y][x-1u]))
+    {
+      x--;
+    }
+    else if (((x+1u) < vect[0u].size()) && (distance_cnt == vect[y][x+1u]))
+    {
+      x++;
+    }
+    else
+    {
+      /* Do nothing. */
+    }
+  }
+
+  /* Clean up, the output shall only contain walls, holes or solutions. */
+  for(uint32_t y = 0u; y < vect.size(); y++)
+  {
+    for(uint32_t x = 0u; x < vect[y].size(); x++)
+    {
+      if ((wall != vect[y][x]) && (solution != vect[y][x]))
+      {
+        vect[y][x] = hole;
+      }
+    }
+  }
+}
+
+/**
  * @brief   Solves the maze with wall follower algorithm.
  * @param   &vect       - The vector-vector of the maze we want to solve. It overwrites the input one.
  * @param   entrance_y  - Y coordinate of the entrance.
@@ -115,7 +229,7 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
   visited.push_back({y, x, 99u}); /* The first direction has to be invalid, so it never gets removed. */
   vect[y][x] = solution;
 
-  /* Loop until, we aren't at the end. */
+  /* Loop until we aren't at the end. */
   while(!((y == exit_y) && (x == exit_x)))
   {
 
@@ -174,9 +288,9 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
 
     
     /* Try to move in every direction. */
-    /* If it is possible to go there, then go. */
+    /* If it is possible to go there, then go (the directions are in priority order). */
     /* If we haven't been there, then push it to the visited stack and mark as a solution. */
-    /* If we have benn there, then pop it from the visited stack and remove the soliton mark. */
+    /* If we have been there, then pop it from the visited stack and remove the soliton mark. */
     for (uint32_t i = 0u; i < directions.size(); i++)
     {
       if (north == directions[i])
@@ -266,5 +380,4 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
     }
   }
 }
-
 

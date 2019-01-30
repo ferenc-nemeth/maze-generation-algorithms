@@ -70,7 +70,7 @@ int32_t main(void)
     filename += "_Binary_tree.png";                       /**< Add the name of the algorithm into the filename. */
     maze = m_maze.get_maze();                             /**< Get the maze. */
     m_file_system.save(maze, filename);                   /**< Save. */
-    m_solver.dead_end(maze);                              /**< Solve it. */
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u); /**< Solve it. */
     filename.insert(filename.size()-4u, "_Solved");       /**< Rename the filename. */
     m_file_system.save(maze, filename);                   /**< Save again. */
   }
@@ -83,7 +83,7 @@ int32_t main(void)
     filename += "_Recursive_backtracking.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dead_end(maze);
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
@@ -96,7 +96,7 @@ int32_t main(void)
     filename += "_Recursive_division.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dead_end(maze);
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
@@ -109,7 +109,7 @@ int32_t main(void)
     filename += "_Prim.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dead_end(maze);
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
@@ -122,7 +122,7 @@ int32_t main(void)
     filename += "_Aldous_Broder.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dead_end(maze);
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
@@ -135,7 +135,7 @@ int32_t main(void)
     filename += "_Kruskal.png";
     maze = m_maze.get_maze();
     m_file_system.save(maze, filename);
-    m_solver.dead_end(maze);
+    m_solver.dijkstra(maze, 0u, 1u, height-1u, width-2u);
     filename.insert(filename.size()-4u, "_Solved");
     m_file_system.save(maze, filename);
   }
