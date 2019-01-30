@@ -29,8 +29,9 @@ The generation algorithms (in implementation order):
 - Kruskal's [[6]](#references)
 
 The solving algorithms (in implementation order):
-- Dead-end filling [[7]](#references)
-- Wall follower [[8]](#references)
+- Dijkstra's [[7]](#references)
+- Dead-end filling [[8]](#references)
+- Wall follower [[9]](#references)
 
 <img src="https://raw.githubusercontent.com/ferenc-nemeth/maze-generation-algorithms/master/design/sample.png" > <br>
 *Figure 1. Sample mazes.*
@@ -147,5 +148,6 @@ First one is the normal clean, the second one clears the output folder.
 [4] [Jamis Buck (The Buckblog) - Prim's algorithm](https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm)<br>
 [5] [Jamis Buck (The Buckblog) - Aldous-Broder algorithm](https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm)<br>
 [6] [Jamis Buck (The Buckblog) - Kruskal's algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)<br>
-[7] [Maze solving algorithm (Wikipedia) - Dead-end filling algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Dead-end_filling)<br>
-[6] [Maze solving algorithm (Wikipedia) - Wall follower algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Wall_follower)<br>
+[7] [Wikipedia - Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm)<br>
+[8] [Wikipedia - Dead-end filling algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Dead-end_filling)<br>
+[9] [Wikipedia - Wall follower algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Wall_follower)<br>
