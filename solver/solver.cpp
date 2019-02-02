@@ -295,7 +295,7 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
     {
       if (north == directions[i])
       {
-        if ((y > 1u) && (wall != vect[y-1u][x]))
+        if ((y > 0u) && (wall != vect[y-1u][x]))
         {
           uint32_t last = visited.size()-1u;
           y--;
@@ -335,7 +335,7 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
       }
       else if (west == directions[i])
       {
-        if ((x > 1u) && (wall != vect[y][x-1u]))
+        if ((x > 0u) && (wall != vect[y][x-1u]))
         {
           uint32_t last = visited.size()-1u;
           x--;
