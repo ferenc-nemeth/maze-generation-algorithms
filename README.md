@@ -20,17 +20,17 @@ A software that generates and solves different kind of mazes with variable heigh
 
 ***[Demonstration videos on youtube.](https://www.youtube.com/playlist?list=PLwIV1dqznwSfvkh5YVYF3ioumOVpMR9KV)***
 
-The generation algorithms (in implementation order):
-- Binary tree [[1]](#references)
-- Recursive backtracking [[2]](#references)
-- Recursive division [[3]](#references)
+The generation algorithms:
+- Aldous-Broder [[1]](#references)
+- Binary tree [[2]](#references)
+- Kruskal's [[3]](#references)
 - Prim's [[4]](#references)
-- Aldous-Broder [[5]](#references)
-- Kruskal's [[6]](#references)
+- Recursive backtracking [[5]](#references)
+- Recursive division [[6]](#references)
 
-The solving algorithms (in implementation order):
-- Dijkstra's [[7]](#references)
-- Dead-end filling [[8]](#references)
+The solving algorithms:
+- Dead-end filling [[7]](#references)
+- Dijkstra's [[8]](#references)
 - Wall follower [[9]](#references)
 
 <img src="https://raw.githubusercontent.com/ferenc-nemeth/maze-generation-algorithms/master/design/sample.png" > <br>
@@ -142,12 +142,12 @@ make clean_output
 First one is the normal clean, the second one clears the output folder.
 
 ### References
-[1] [Jamis Buck (The Buckblog) - Binary tree algorithm](https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm)<br>
-[2] [Jamis Buck (The Buckblog) - Recursive backtracking algorithm](https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking)<br>
-[3] [Jamis Buck (The Buckblog) - Recursive division algorithm](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)<br>
+[1] [Jamis Buck (The Buckblog) - Aldous-Broder algorithm](https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm)<br>
+[2] [Jamis Buck (The Buckblog) - Binary tree algorithm](https://weblog.jamisbuck.org/2011/2/1/maze-generation-binary-tree-algorithm)<br>
+[3] [Jamis Buck (The Buckblog) - Kruskal's algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)<br>
 [4] [Jamis Buck (The Buckblog) - Prim's algorithm](https://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm)<br>
-[5] [Jamis Buck (The Buckblog) - Aldous-Broder algorithm](https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm)<br>
-[6] [Jamis Buck (The Buckblog) - Kruskal's algorithm](https://weblog.jamisbuck.org/2011/1/3/maze-generation-kruskal-s-algorithm)<br>
-[7] [Wikipedia - Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm)<br>
-[8] [Wikipedia - Dead-end filling algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Dead-end_filling)<br>
+[5] [Jamis Buck (The Buckblog) - Recursive backtracking algorithm](https://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking)<br>
+[6] [Jamis Buck (The Buckblog) - Recursive division algorithm](https://weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)<br>
+[7] [Wikipedia - Dead-end filling algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Dead-end_filling)<br>
+[8] [Wikipedia - Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra's_algorithm)<br>
 [9] [Wikipedia - Wall follower algorithm](https://en.wikipedia.org/wiki/Maze_solving_algorithm#Wall_follower)<br>

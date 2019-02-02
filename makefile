@@ -10,17 +10,17 @@
 CXX = g++
 
 # Every maze generation algorithm
+MODULES += mazes/aldous_broder
 MODULES += mazes/binary_tree
+MODULES += mazes/kruskal
+MODULES += mazes/prim
 MODULES += mazes/recursive_backtracking
 MODULES += mazes/recursive_division
-MODULES += mazes/prim
-MODULES += mazes/aldous_broder
-MODULES += mazes/kruskal
 
 # Common
-MODULES += common/maze_generator
 MODULES += common/file_system
 MODULES += common/main
+MODULES += common/maze_generator
 
 # Solver
 MODULES += solver
