@@ -6,4 +6,4 @@ maze_generator
 
 #except
 !output/.gitkeep
-!maze_generator
+!maze_generator/
