@@ -11,13 +11,17 @@
 
 /**
  * @brief   Solves the maze with dead-end filling algorithm.
- *          This implementation only works if the entrance and exit are at the border of the maze. 
- *          The implementation and usage is easier this way, but it is possible to do it in the 'normal way'.
  * @param   &vect - The vector-vector of the maze we want to solve. It overwrites the input one.
+ * @param   entrance_y  - Y coordinate of the entrance.
+ * @param   entrance_x  - X coordinate of the entrance.
+ * @param   exit_y      - Y coordinate of the exit.
+ * @param   exit_x      - X coordinate of the exit.
  * @return  void
  */
-void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect)
+void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x)
 {
+  vect[entrance_y][entrance_x] = never_dead;
+  vect[exit_y][exit_x] = never_dead;
   bool found_dead_end = true;
 
   /* Loop until there are dead-ends. */
@@ -25,61 +29,56 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect)
   { 
     found_dead_end = false;
     /* Loop through the maze. */
-    for(uint32_t y = 1u; y < vect.size(); y += 2u)
+    for(uint32_t y = 0u; y < vect.size(); y++)
     {
-      for(uint32_t x = 1u; x < vect[y].size(); x += 2u)
+      for(uint32_t x = 0u; x < vect[y].size(); x++)
       {
-        uint32_t dead_end_counter = 4u;
-        uint32_t possible_y = 0u;
-        uint32_t possible_x = 0u;
+        uint32_t dead_end_counter = 0u;
 
-        /* Check the 4 directions of the hole. */
-        if (hole == vect[y-1u][x])
+        if (hole == vect[y][x])
         {
-          dead_end_counter--;
-          possible_y = y-1u;
-          possible_x = x;
-        }
+          /* Check the 4 directions of the hole. */
+          /* North. */
+          if ((y > 0u) && ((wall == vect[y-1u][x]) || (dead == vect[y-1u][x])))
+          {
+            dead_end_counter++;
+          }
+          /* South. */
+          if (((y+1u) < vect.size()) && ((wall == vect[y+1u][x]) || (dead == vect[y+1u][x])))
+          {
+            dead_end_counter++;
+          }
+          /* West. */
+          if ((x > 0u) && ((wall == vect[y][x-1u]) || (dead == vect[y][x-1u])))
+          {
+            dead_end_counter++;
+          }
+          /* East. */
+          if (((x+1u) < vect[0u].size()) && ((wall == vect[y][x+1u]) || (dead == vect[y][x+1u])))
+          {
+            dead_end_counter++;
+          }
 
-        if (hole == vect[y+1u][x])
-        {
-          dead_end_counter--;
-          possible_y = y+1u;
-          possible_x = x;
-        }
-
-        if (hole == vect[y][x-1u])
-        {
-          dead_end_counter--;
-          possible_y = y;
-          possible_x = x-1u;
-        }
-
-        if (hole == vect[y][x+1u])
-        {
-          dead_end_counter--;
-          possible_y = y;
-          possible_x = x+1u;
-        }
-
-        /* If a hole has 3 walls (or dead-ends) next to it, then it is a dead-end. */
-        /* Mark that hole and the only hole next to it. */
-        if (3u == dead_end_counter)
-        {
-          vect[y][x] = dead;
-          vect[possible_y][possible_x] = dead;
-          found_dead_end = true;
+          /* If a hole has 3 walls (or dead-ends) next to it, then it is a dead-end. */
+          /* Mark that hole and the only hole next to it. */
+          /* The boundaries are dead-ends in every case. */
+          if ((3u == dead_end_counter) \
+          || ((0u == y) || (0u == x) || (vect.size()-1u == y) || (vect[0u].size()-1u == x)))
+          {
+            vect[y][x] = dead;
+            found_dead_end = true;
+          }
         }
       }
     }
   }
 
-  /* Clean-up. Turn every hole into solution and turn back every dead-end into a hole. */
+  /* Clean-up. Turn every hole (+the entrance and exit) into a solution and turn back every dead-end into a hole. */
   for(uint32_t y = 0u; y < vect.size(); y++)
   {
     for(uint32_t x = 0u; x < vect[y].size(); x++)
     {
-      if (hole == vect[y][x])
+      if ((hole == vect[y][x]) || (never_dead == vect[y][x]))
       {
         vect[y][x] = solution;
       }
@@ -93,6 +92,7 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect)
       }
     }
   }
+
 }
 
 /**
