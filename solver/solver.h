@@ -52,6 +52,8 @@ namespace maze
         uint32_t x;
       };
 
+      void error_check(std::vector<std::vector<uint32_t>> vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x);
+
   };
 }
 

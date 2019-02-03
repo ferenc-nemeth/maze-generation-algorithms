@@ -20,6 +20,9 @@
  */
 void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x)
 {
+  error_check(vect, entrance_y, entrance_x, exit_y, exit_x);
+
+  /* Separate the entrace and exit from everything. */
   vect[entrance_y][entrance_x] = never_dead;
   vect[exit_y][exit_x] = never_dead;
   bool found_dead_end = true;
@@ -60,7 +63,6 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect, uint32_t e
           }
 
           /* If a hole has 3 walls (or dead-ends) next to it, then it is a dead-end. */
-          /* Mark that hole and the only hole next to it. */
           /* The boundaries are dead-ends in every case. */
           if ((3u == dead_end_counter) \
           || ((0u == y) || (0u == x) || (vect.size()-1u == y) || (vect[0u].size()-1u == x)))
@@ -73,7 +75,7 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect, uint32_t e
     }
   }
 
-  /* Clean-up. Turn every hole (+the entrance and exit) into a solution and turn back every dead-end into a hole. */
+  /* Clean-up. Turn every hole (+ the separted entrance and exit) into a solution and turn back every dead-end into a hole. */
   for(uint32_t y = 0u; y < vect.size(); y++)
   {
     for(uint32_t x = 0u; x < vect[y].size(); x++)
@@ -106,6 +108,8 @@ void maze::solver::dead_end(std::vector<std::vector<uint32_t>> &vect, uint32_t e
  */
 void maze::solver::dijkstra(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x)
 {
+  error_check(vect, entrance_y, entrance_x, exit_y, exit_x);
+
   std::vector<distance> distances;
   uint32_t distance_cnt = 3u; /* Should be 0, but 0-2 are already used, so it would confuse everything. */
   distances.push_back({entrance_y, entrance_x}); 
@@ -221,6 +225,8 @@ void maze::solver::dijkstra(std::vector<std::vector<uint32_t>> &vect, uint32_t e
  */
 void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x, uint32_t rule)
 {
+  error_check(vect, entrance_y, entrance_x, exit_y, exit_x);
+
   uint32_t y = entrance_y;
   uint32_t x = entrance_x;
   uint32_t direction = north;
@@ -378,6 +384,28 @@ void maze::solver::wall_follower(std::vector<std::vector<uint32_t>> &vect, uint3
         /* Do nothing. */
       }
     }
+  }
+}
+
+/**
+ * @brief   Error handler for the solver algorithms. It shall be insterted into every member function.
+ * @param   &vect       - The vector-vector of the maze we want to solve. It overwrites the input one.
+ * @param   entrance_y  - Y coordinate of the entrance.
+ * @param   entrance_x  - X coordinate of the entrance.
+ * @param   exit_y      - Y coordinate of the exit.
+ * @param   exit_x      - X coordinate of the exit.
+ * @return  void
+ */
+void maze::solver::error_check(std::vector<std::vector<uint32_t>> vect, uint32_t entrance_y, uint32_t entrance_x, uint32_t exit_y, uint32_t exit_x)
+{
+  if ((vect.size() <= entrance_y) || (vect[0u].size() <= entrance_x) || (vect.size() <= exit_y) || (vect[0u].size() <= exit_x))
+  {
+    throw std::invalid_argument("Out of boundary!");
+  }
+
+  if ((hole != vect[entrance_y][entrance_x]) || (hole != vect[entrance_y][entrance_x]))
+  {
+    throw std::invalid_argument("The entrance and exit must be holes (0).");
   }
 }
 
