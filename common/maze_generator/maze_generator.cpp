@@ -131,3 +131,23 @@ void maze::maze_generator::reshape(uint32_t height, uint32_t width)
   }
 }
 
+/**
+ * @brief   Returns the height of the maze.
+ * @param   void
+ * @return  height
+ */
+uint32_t maze::maze_generator::get_height(void)
+{
+  return area.size();
+}
+
+/**
+ * @brief   Returns the width of the maze.
+ * @param   void
+ * @return  width
+ */
+uint32_t maze::maze_generator::get_width(void)
+{
+  return area[0u].size();
+}
+

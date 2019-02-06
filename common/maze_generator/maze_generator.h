@@ -29,9 +29,14 @@ namespace maze
 
       void set_cell(uint32_t y, uint32_t x, uint32_t value);
       uint32_t get_cell(uint32_t y, uint32_t x);
+
       std::vector<std::vector<uint32_t>> get_maze(void);
       void set_maze(std::vector<std::vector<uint32_t>> vect);
+
       void reshape(uint32_t new_height, uint32_t new_width);
+
+      uint32_t get_height(void);
+      uint32_t get_width(void);
 
     protected:
       std::random_device random_device;
