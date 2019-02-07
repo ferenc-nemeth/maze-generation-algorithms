@@ -7,8 +7,6 @@ Collection of maze generation and solving algorithms.
   - [File structure](#file-structure)
   - [Maze generators](#maze-generators)
   - [Maze solvers](#maze-solvers)
-  - [Main](#main)
-  - [File_system](#file_system) 
 - [How to use it](#how-to-use-it)
 - [References](#references)
 
@@ -65,7 +63,7 @@ The folder structure can be seen below.
 Details about the important folders and files:
 
 - common:
-  - main: Main() function.
+  - main: Main() function, with a demonstration software.
   - file_system: Saves/loads the maze as an image.
   - maze_generator: Base class for every other class.
 - design: Pictures needed by this readme.
@@ -81,9 +79,9 @@ A maze is represented by a **vector<vector<uint32_t>>**, where 0 is a hole or pa
 
 Every algorithm has its own class and a common base class, called maze_generator.
 
-Each class has the following public methods:
+Each class has the following public member function:
 
-| Method      | Purpose                                                                       |
+| Function    | Purpose                                                                       |
 | ---         | ---                                                                           |
 | constructor | Creates the 2D vector with the given height and width.                        |
 | get_cell    | Returns the value of the cell.                                                |
@@ -91,23 +89,15 @@ Each class has the following public methods:
 | get_maze    | Returns the maze as a 2D vector.                                              |
 | set_maze    | Manually overwrites the whole maze.                                           |
 | reshape     | Changes the height and width of the maze.                                     |
+| get_height  | Returns the height of the maze.                                               |
+| get_width   | Returns the width of the maze.                                                |
 | generate    | Does the actual generation.                                                   |
 
-The first six methods are inherited from the base class, the last is different for every algorithm.
+The first six member functions are inherited from the base class, the last is different for every algorithm.
 
 #### Maze solvers
 
-The solving algorithms are way simpler, than the generators. There are only one class (solver) and every algorithm is a single method.
-
-#### Main
-
-The main function is a demo that demonstrates how the generator is working. It asks for width, height and algorithm for the generation. After the selected input parameters, the software generates it and then solves it.
-Finally the the generated and solved mazes are saved in the output folder as \*.png image.
-
-#### File_system
-
-The file_system class has a save and load method. The save, as its name shows, saves me maze. It uses OpenCV to convert the vector-vector into an actual image. It turns every wall into a black cell, every hole into a white cell, and everything else into red. The method also resizes the image, makes it 20 times bigger, for visibility purpose.
-The load method works the same way, but does the opposite, loads an image and turns it into a vector-vector.
+The solving algorithms are way simpler, than the generators. There are only one class (solver) and every algorithm is a single member function.
 
 ### How to use it
 
@@ -139,7 +129,7 @@ and
 ```
 make clean_output
 ```
-First one is the normal clean, the second one clears the output folder.
+First one is the normal clean, the second one cleans the output folder.
 
 ### References
 [1] [Jamis Buck (The Buckblog) - Aldous-Broder algorithm](https://weblog.jamisbuck.org/2011/1/17/maze-generation-aldous-broder-algorithm)<br>
